@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Инвентарь игрока {{ player.username }}
+{% endblock %}
+
+{% block content %}
+    <h1> Инвентарь игрока {{ player.username }} </h1>
+    <p> Здоровье: {{ player.hit_points }}</p>
+    <p> Деньги: {{ player.money }}</p>
+    <p> Опыт: {{ player.exp }}</p>
+    <p> Уровень: {{ player.level }}</p>
+    <p> Оружие: {{ player.weapon.name }}</p>
+    <p> Урон: {{ player.weapon.damage }}</p>
+    <p> Защита: {{ player.weapon.defense }}</p>
+    <div class ="shop-section">
+        <h2> Предметы в инвентаре</h2>
+        <div class = "items-grid">
+            {% for item in items %}
+                <div class = "item">
+                    <div class="item-name">{{item.name}}</div>
+                    <form method="POST">
+                        <input type = "hidden" name="item_id" value="{{item.id}}">
+                        <button type = "submit" name="command" value="use">
+                            использовать
+                        </button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
